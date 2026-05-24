@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 import BlogCard from '../components/BlogCard';
 import { FiSearch } from 'react-icons/fi';
@@ -129,7 +130,7 @@ const HomePage = () => {
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Trending Now</h3>
           <div className="space-y-4">
             {trending.map((blog, idx) => (
-              <div key={blog._id} className="flex gap-4 items-start group cursor-pointer">
+              <Link key={blog._id} to={`/blogs/${blog._id}`} className="flex gap-4 items-start group">
                 <span className="text-2xl font-bold text-gray-200 dark:text-gray-700 group-hover:text-indigo-200 dark:group-hover:text-indigo-900 transition-colors">
                   0{idx + 1}
                 </span>
@@ -141,7 +142,7 @@ const HomePage = () => {
                     {blog.author?.username} • {blog.likes?.length || 0} Likes
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

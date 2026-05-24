@@ -53,8 +53,16 @@ const EditBlogPage = () => {
     }
   };
 
-  if (loading) return <div>Loading editor...</div>;
-  if (error && !title) return <div className="text-red-600">{error}</div>;
+  if (loading) return (
+    <div className="flex items-center justify-center py-20">
+      <div className="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
+  if (error && !title) return (
+    <div className="max-w-4xl mx-auto text-center py-20">
+      <p className="text-red-600 dark:text-red-400 text-lg">{error}</p>
+    </div>
+  );
 
   return (
     <div className="max-w-4xl mx-auto flex flex-col md:flex-row gap-8">
