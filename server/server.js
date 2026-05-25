@@ -13,14 +13,24 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+// CORS (Render/prod should set CORS_ORIGIN to the frontend origin)
+// Example: CORS_ORIGIN=https://your-frontend.onrender.com
+// You can also set multiple origins comma-separated.
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map((s) => s.trim())
+    : true,
   credentials: true,
 }));
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Health check
+app.get('/', (req, res) => {
+  res.json({ name: 'bloging-api', status: 'ok' });
+});
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
